@@ -12,18 +12,18 @@ namespace VirtData
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetRoles
+    public partial class tb_grade
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public AspNetRoles()
+        public tb_grade()
         {
-            this.AspNetUsers = new HashSet<AspNetUsers>();
+            this.tb_UserAccount = new HashSet<tb_UserAccount>();
         }
     
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public int id { get; set; }
+        public string grade { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
+        public virtual ICollection<tb_UserAccount> tb_UserAccount { get; set; }
     }
 }

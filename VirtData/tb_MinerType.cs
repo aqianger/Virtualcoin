@@ -12,12 +12,10 @@ namespace VirtData
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogins
+    public partial class tb_MinerType
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string UserId { get; set; }
-    
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public int id { get; set; }
+        public string Name { get; set; }
+        public decimal price { get; set; }
     }
 }

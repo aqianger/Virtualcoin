@@ -12,11 +12,14 @@ namespace VirtData
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogins
+    public partial class tb_Notice
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string UserId { get; set; }
+        public int nid { get; set; }
+        public string title { get; set; }
+        public string content { get; set; }
+        public string creator { get; set; }
+        public System.DateTime created { get; set; }
+        public bool isShow { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
     }

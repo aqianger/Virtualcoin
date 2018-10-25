@@ -12,12 +12,12 @@ namespace VirtData
     using System;
     using System.Collections.Generic;
     
-    public partial class AspNetUserLogins
+    public partial class tb_params
     {
-        public string LoginProvider { get; set; }
-        public string ProviderKey { get; set; }
-        public string UserId { get; set; }
-    
-        public virtual AspNetUsers AspNetUsers { get; set; }
+        public System.Guid id { get; set; }
+        public string paramkey { get; set; }
+        public string paramStrValue { get; set; }
+        public Nullable<int> paramIntValue { get; set; }
+        public Nullable<decimal> paramFloatValue { get; set; }
     }
 }

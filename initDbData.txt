@@ -1,0 +1,31 @@
+insert into tb_MinerType(id,Name,price) values(1,'微型矿机',6000);
+insert into tb_MinerType(id,Name,price) values(2,'中型矿机',11000);
+insert into tb_MinerType(id,Name,price) values(3,'大型矿机',50000);
+insert into tb_params (id,paramkey,paramFloatValue,[describe]) values(newid(), 'Losscoefficient',18.0,'区块消耗，如果是18%，填写18.0');
+insert into tb_params (id,paramkey,paramFloatValue,[describe]) values(newid(), 'Transfercoefficient',0.0,'转账扣除比率，如果是18%，填写18.0');
+insert into tb_params (id,paramkey,paramIntValue,[describe]) values(newid(), 'Allowanytransfer',1,'1,允许任意转账，0仅允许树形转账');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType1-1',90,0.8333,'微型矿机第一阶段（<=90天）,每天产币比率');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType1-2',120,0.7333,'微型矿机第二阶段（>90 && <=120天）,每天产币比率');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType1-3',365,0.7333,'微型矿机第三阶段（>120 天）,每天产币比率');
+
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType2-1',90,1.0,'中型矿机第一阶段（<=90天）,每天产币比率');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType2-2',120,0.9,'中型矿机第二阶段（>90 && <=120天）,每天产币比率');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType2-3',365,0.8,'中型矿机第三阶段（>120 天）,每天产币比率');
+
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType3-1',90,1.1111,'大型矿机第一阶段（<=90天）,每天产币比率');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType3-2',120,9.1111,'大型矿机第二阶段（>90 && <=120天）,每天产币比率');
+insert into tb_params (id,paramkey,paramIntValue,paramFloatValue,describe) values(newid(),'minerType3-3',365,8.1111,'大型矿机第三阶段（>120 天）,每天产币比率');
+
+
+insert into tb_grade(id,grade,Rewardpercentage) values(0,'A0',19);
+insert into tb_grade(id,grade,Rewardpercentage) values(1,'A1',24);
+insert into tb_grade(id,grade,Rewardpercentage) values(2,'A2',25);
+insert into tb_grade(id,grade,Rewardpercentage) values(3,'A3',26);
+insert into tb_grade(id,grade,Rewardpercentage) values(4,'B1',29);
+insert into tb_grade(id,grade,Rewardpercentage) values(5,'B2',30);
+insert into tb_grade(id,grade,Rewardpercentage) values(6,'B3',31);
+insert into tb_grade(id,grade,Rewardpercentage) values(7,'C1',34);
+insert into tb_grade(id,grade,Rewardpercentage) values(8,'C2',35);
+insert into tb_grade(id,grade,Rewardpercentage) values(9,'C3',36);
+insert into tb_grade(id,grade,Rewardpercentage) values(10,'S',40);
+

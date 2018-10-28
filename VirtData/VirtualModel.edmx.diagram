@@ -5,27 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2eb62656d8eb4064be837808583d9397" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="3" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.tb_MinerType" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="Model.tb_Notice" Width="1.5" PointX="5.25" PointY="16.375" />
-        <AssociationConnector Association="Model.FK_tb_Notice_AspNetUsers" />
-        <EntityTypeShape EntityType="Model.tb_params" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.tb_grade" Width="1.5" PointX="9.375" PointY="0.875" />
-        <EntityTypeShape EntityType="Model.tb_UserAccount" Width="1.5" PointX="11.625" PointY="4" />
-        <AssociationConnector Association="Model.FK_tb_UserAccount_AspNetUsers" />
-        <AssociationConnector Association="Model.FK_tb_UserAccount_tb_grade" />
-        <EntityTypeShape EntityType="Model.tb_Capitalflow" Width="1.5" PointX="5.25" PointY="10.5" />
+        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="0.75" PointY="9.5" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="17" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="8.5" />
+        <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="3" PointY="8" />
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.tb_Capitalflow" Width="1.5" PointX="5.25" PointY="4.625" />
+        <EntityTypeShape EntityType="Model.tb_eventlog" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.tb_grade" Width="1.5" PointX="6" PointY="11.375" />
+        <EntityTypeShape EntityType="Model.tb_MinerType" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="Model.tb_Notice" Width="1.5" PointX="5.25" PointY="19.625" />
+        <EntityTypeShape EntityType="Model.tb_params" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Model.tb_UserAccount" Width="1.5" PointX="8.25" PointY="7.625" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Model.FK_tb_Capitalflow_AspNetUsers" />
         <AssociationConnector Association="Model.FK_tb_Capitalflow_AspNetUsers1" />
-        <EntityTypeShape EntityType="Model.tb_eventlog" Width="1.5" PointX="5.375" PointY="0.75" />
-        </Diagram>
+        <AssociationConnector Association="Model.FK_tb_Notice_AspNetUsers" />
+        <AssociationConnector Association="Model.FK_tb_UserAccount_AspNetUsers" />
+        <AssociationConnector Association="Model.FK_tb_UserAccount_tb_grade" />
+        <AssociationConnector Association="Model.AspNetUserRoles" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

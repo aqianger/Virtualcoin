@@ -94,16 +94,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>VirtualModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="VirtualModel.cs" />
+    <Compile Include="VirtualModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="VirtualModel.Designer.cs">
       <DependentUpon>VirtualModel.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="VirtualModel1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>VirtualModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -118,18 +117,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="VirtualModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>VirtualModel.Context.cs</LastGenOutput>
+      <DependentUpon>VirtualModel.edmx</DependentUpon>
     </Content>
-    <Content Include="VirtualModel.edmx.sql" />
     <Content Include="VirtualModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>VirtualModel1.cs</LastGenOutput>
+      <LastGenOutput>VirtualModel.cs</LastGenOutput>
+      <DependentUpon>VirtualModel.edmx</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

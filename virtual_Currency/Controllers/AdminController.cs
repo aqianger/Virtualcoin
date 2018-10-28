@@ -12,7 +12,7 @@ namespace virtual_Currency.Controllers
     [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
-        VirtuModel vm = new VirtuModel();
+        Entities vm = new Entities();
         webapiresult result = new webapiresult();
         // GET: Admin
         public ActionResult Index()
@@ -44,9 +44,9 @@ namespace virtual_Currency.Controllers
                 result.msg = "此手机号已存在";
                 return new JsonResult() { Data = result };
             }
-         
-            vm.AspNetUsers.Add(anUser);
-            vm.SaveChanges();
+            return new JsonResult() { Data = result };
+            // vm.AspNetUsers.Add(anUser);
+            // vm.SaveChanges();
         }
     }
 }

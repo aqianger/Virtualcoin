@@ -315,6 +315,7 @@ namespace VirtualCore.VirtLogic
                 decimal lossMoney = rewardMoney * this.Losscoefficient / 100;
                 decimal resultMoney = rewardMoney - lossMoney;
                 user.money += resultMoney;
+                user.directAward += resultMoney;
                 tb_UserAccount systemUser = this.SystemUser;
                 systemUser.money -= resultMoney;
                 string curUserName = _dbContext.AspNetUsers.Single(a => a.Id == user.Id).UserName;
@@ -342,6 +343,8 @@ namespace VirtualCore.VirtLogic
                 decimal rewardMoney = AllMoney * (myRewardpercentage - preRewardpercentage) / 100;
                 decimal lossMoney = rewardMoney * this.Losscoefficient / 100;
                 decimal resultMoney = rewardMoney - lossMoney;
+                user.money += resultMoney;
+                user.indirectAward += resultMoney;
                 tb_UserAccount systemUser = this.SystemUser;
                 systemUser.money -= resultMoney;
                 string curUserName = _dbContext.AspNetUsers.Single(a => a.Id == user.Id).UserName;

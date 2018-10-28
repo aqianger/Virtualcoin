@@ -49,8 +49,8 @@ namespace VirtData
         public virtual ICollection<tb_Capitalflow> tb_Capitalflow1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_Notice> tb_Notice { get; set; }
-        public virtual tb_UserAccount tb_UserAccount { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AspNetRoles> AspNetRoles { get; set; }
+        public virtual tb_UserAccount tb_UserAccount { get; set; }
     }
 }

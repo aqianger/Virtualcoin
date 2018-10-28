@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using virtual_Currency.Models;
+using VirtData;
 
 namespace virtual_Currency.Controllers
 {
@@ -17,7 +18,7 @@ namespace virtual_Currency.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        Entities vm = new Entities();
         public AccountController()
         {
         }
@@ -84,10 +85,15 @@ namespace virtual_Currency.Controllers
             {
                 return View(model);
             }
-
+            AspNetUsers anUser = vm.AspNetUsers.FirstOrDefault(x => x.UserName.Equals(model.UserName, StringComparison.InvariantCultureIgnoreCase));
+            if (anUser == null)
+            {
+                ModelState.AddModelError("UserName", "用户名不存在。");
+                return View(model);
+            }
             // 这不会计入到为执行帐户锁定而统计的登录失败次数中
             // 若要在多次输入错误密码的情况下触发帐户锁定，请更改为 shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(anUser.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:

@@ -53,11 +53,15 @@ namespace virtual_Currency.Models
 
     public class LoginViewModel
     {
+        /*
         [Required]
         [Display(Name = "电子邮件")]
         [EmailAddress]
         public string Email { get; set; }
-
+        */
+        [Required]
+        [Display(Name ="用户命")]
+        public string UserName { get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "密码")]

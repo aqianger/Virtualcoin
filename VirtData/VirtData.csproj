@@ -66,6 +66,7 @@
     </Compile>
     <Compile Include="models\minUserModel.cs" />
     <Compile Include="models\richUserModel.cs" />
+    <Compile Include="models\userInfoForAdmin.cs" />
     <Compile Include="models\webapiresult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tb_Capitalflow.cs">

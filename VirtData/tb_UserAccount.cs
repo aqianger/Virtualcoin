@@ -35,6 +35,8 @@ namespace VirtData
         public int RecommendC2 { get; set; }
         public int RecommendC3 { get; set; }
         public int RecommendS { get; set; }
+        public decimal directAward { get; set; }
+        public decimal indirectAward { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual tb_grade tb_grade { get; set; }

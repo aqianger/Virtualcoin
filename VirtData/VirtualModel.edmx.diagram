@@ -16,15 +16,15 @@
         <EntityTypeShape EntityType="Model.tb_MinerType" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="Model.tb_Notice" Width="1.5" PointX="5.25" PointY="19.625" />
         <EntityTypeShape EntityType="Model.tb_params" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="Model.tb_UserAccount" Width="1.5" PointX="8.25" PointY="7.625" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
         <AssociationConnector Association="Model.FK_tb_Capitalflow_AspNetUsers" />
         <AssociationConnector Association="Model.FK_tb_Capitalflow_AspNetUsers1" />
         <AssociationConnector Association="Model.FK_tb_Notice_AspNetUsers" />
+        <AssociationConnector Association="Model.AspNetUserRoles" />
+        <EntityTypeShape EntityType="Model.tb_UserAccount" Width="1.5" PointX="8.25" PointY="7.75" />
         <AssociationConnector Association="Model.FK_tb_UserAccount_AspNetUsers" />
         <AssociationConnector Association="Model.FK_tb_UserAccount_tb_grade" />
-        <AssociationConnector Association="Model.AspNetUserRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

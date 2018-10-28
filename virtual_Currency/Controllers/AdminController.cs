@@ -44,16 +44,7 @@ namespace virtual_Currency.Controllers
                 result.msg = "此手机号已存在";
                 return new JsonResult() { Data = result };
             }
-            AspNetUsers anUser = new AspNetUsers();
-            anUser.Email = user.Email;
-            anUser.EmailConfirmed = false;
-            anUser.Hometown = "";
-            anUser.LockoutEnabled = true;
-            anUser.PhoneNumber = user.phoneNumber;
-            anUser.PhoneNumberConfirmed = false;
-            anUser.SecurityStamp = "";
-            anUser.TwoFactorEnabled = false;
-            anUser.UserName = user.userName;
+         
             vm.AspNetUsers.Add(anUser);
             vm.SaveChanges();
         }

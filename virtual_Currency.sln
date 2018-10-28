@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "virtual_Currency", "virtual
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtData", "VirtData\VirtData.csproj", "{C58B8EC7-01F9-49DB-B1F1-E489FF0493EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualCore", "VirtualCore\VirtualCore.csproj", "{C3AAC470-F1E0-4F8D-8ECE-242BA4E4B4EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C58B8EC7-01F9-49DB-B1F1-E489FF0493EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C58B8EC7-01F9-49DB-B1F1-E489FF0493EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C58B8EC7-01F9-49DB-B1F1-E489FF0493EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3AAC470-F1E0-4F8D-8ECE-242BA4E4B4EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3AAC470-F1E0-4F8D-8ECE-242BA4E4B4EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3AAC470-F1E0-4F8D-8ECE-242BA4E4B4EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3AAC470-F1E0-4F8D-8ECE-242BA4E4B4EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

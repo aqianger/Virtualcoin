@@ -49,21 +49,87 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AspNetRoles.cs" />
-    <Compile Include="AspNetUserClaims.cs" />
-    <Compile Include="AspNetUserLogins.cs" />
-    <Compile Include="AspNetUsers.cs" />
-    <Compile Include="C__MigrationHistory.cs" />
+    <Compile Include="AspNetRoles.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserClaims.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUserLogins.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AspNetUsers.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C__MigrationHistory.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="models\minUserModel.cs" />
+    <Compile Include="models\richUserModel.cs" />
     <Compile Include="models\webapiresult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="tb_Capitalflow.cs" />
-    <Compile Include="tb_UserAccount.cs" />
-    <Compile Include="VirtuModel.cs" />
+    <Compile Include="tb_Capitalflow.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_eventlog.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_grade.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_MinerType.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_Notice.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_params.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tb_UserAccount.cs">
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VirtualModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirtualModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VirtualModel.cs" />
+    <Compile Include="VirtualModel.Designer.cs">
+      <DependentUpon>VirtualModel.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="VirtualModel1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>VirtualModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="VirtualModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>VirtualModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="VirtualModel.edmx.diagram">
+      <DependentUpon>VirtualModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="VirtualModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VirtualModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="VirtualModel.edmx.sql" />
+    <Content Include="VirtualModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>VirtualModel1.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

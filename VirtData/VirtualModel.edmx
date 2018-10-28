@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="__MigrationHistory">
-          <Key>
-            <PropertyRef Name="MigrationId" />
-            <PropertyRef Name="ContextKey" />
-          </Key>
-          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
-          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
-          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
-        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -43,11 +33,11 @@
         </EntityType>
         <EntityType Name="AspNetUserRoles">
           <Key>
-            <PropertyRef Name="UserId" />
-            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="AspNetRoles_Id" />
+            <PropertyRef Name="AspNetUsers_Id" />
           </Key>
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetRoles_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="AspNetUsers_Id" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -66,7 +56,16 @@
           <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
           <Property Name="AccessFailedCount" Type="int" Nullable="false" />
           <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
-          <Property Name="Grade" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_Capitalflow">
           <Key>
@@ -75,25 +74,30 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="userid" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="flowType" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="money" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="money" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="otherUser" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="describe" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="curMoney" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="isIncome" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="tb_coefficient">
+        <EntityType Name="tb_eventlog">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="firststage" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="secstage" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="thridstage" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enventtype" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="eventdesc" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="created" Type="datetime" Nullable="false" />
+          <Property Name="userid" Type="varchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="tb_grade">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="grade" Type="nchar" MaxLength="2" Nullable="false" />
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="grade" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="Rewardpercentage" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_MinerType">
           <Key>
@@ -101,7 +105,7 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="price" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="18" Scale="4" Nullable="false" />
         </EntityType>
         <EntityType Name="tb_Notice">
           <Key>
@@ -122,23 +126,15 @@
           <Property Name="paramkey" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="paramStrValue" Type="nvarchar" MaxLength="250" />
           <Property Name="paramIntValue" Type="int" />
-          <Property Name="paramFloatValue" Type="numeric" Precision="18" Scale="4" />
-        </EntityType>
-        <EntityType Name="tb_reward_coefficient">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="rfirststage" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="rsecstage" Type="numeric" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="rthridstage" Type="numeric" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="paramFloatValue" Type="decimal" Precision="18" Scale="4" />
+          <Property Name="describe" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="tb_UserAccount">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="money" Type="numeric" Precision="18" Scale="4" Nullable="false" />
+          <Property Name="money" Type="decimal" Precision="18" Scale="4" Nullable="false" />
           <Property Name="created" Type="datetime" Nullable="false" />
           <Property Name="modify" Type="datetime" Nullable="false" />
           <Property Name="paypwd" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -159,6 +155,30 @@
           <Property Name="RecommendC3" Type="int" Nullable="false" />
           <Property Name="RecommendS" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AspNetUserRoles_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="AspNetRoles_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AspNetUserRoles_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="AspNetUsers_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -183,34 +203,6 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="AspNetUserLogins">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -276,20 +268,27 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ModelStoreContainer">
-          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_Capitalflow" EntityType="Self.tb_Capitalflow" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tb_coefficient" EntityType="Self.tb_coefficient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tb_eventlog" EntityType="Self.tb_eventlog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_grade" EntityType="Self.tb_grade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_MinerType" EntityType="Self.tb_MinerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_Notice" EntityType="Self.tb_Notice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_params" EntityType="Self.tb_params" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tb_reward_coefficient" EntityType="Self.tb_reward_coefficient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tb_UserAccount" EntityType="Self.tb_UserAccount" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetRoles" Association="Self.FK_AspNetUserRoles_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AspNetUserRoles_AspNetUsers" Association="Self.FK_AspNetUserRoles_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -297,14 +296,6 @@
           <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
-            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_tb_Capitalflow_AspNetUsers" Association="Self.FK_tb_Capitalflow_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
@@ -390,20 +381,12 @@
           <Property Name="Grade" Type="Int32" Nullable="false" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
-          <NavigationProperty Name="tb_UserAccount" Relationship="Self.FK_tb_UserAccount_AspNetUsers" FromRole="AspNetUsers" ToRole="tb_UserAccount" />
           <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+          <NavigationProperty Name="tb_Notice" Relationship="Model.FK_tb_Notice_AspNetUsers" FromRole="AspNetUsers" ToRole="tb_Notice" />
+          <NavigationProperty Name="tb_UserAccount" Relationship="Model.FK_tb_UserAccount_AspNetUsers" FromRole="AspNetUsers" ToRole="tb_UserAccount" />
           <NavigationProperty Name="tb_Capitalflow" Relationship="Model.FK_tb_Capitalflow_AspNetUsers" FromRole="AspNetUsers" ToRole="tb_Capitalflow" />
           <NavigationProperty Name="tb_Capitalflow1" Relationship="Model.FK_tb_Capitalflow_AspNetUsers1" FromRole="AspNetUsers" ToRole="tb_Capitalflow" />
-          <NavigationProperty Name="tb_Notice" Relationship="Model.FK_tb_Notice_AspNetUsers" FromRole="AspNetUsers" ToRole="tb_Notice" />
-        </EntityType>
-        <EntityType Name="tb_grade">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="grade" Type="String" MaxLength="2" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="tb_UserAccount" Relationship="Self.FK_tb_UserAccount_tb_grade" FromRole="tb_grade" ToRole="tb_UserAccount" />
-        </EntityType>
+          </EntityType>
         <EntityType Name="tb_MinerType">
           <Key>
             <PropertyRef Name="id" />
@@ -411,44 +394,6 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="price" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-        </EntityType>
-        <EntityType Name="tb_params">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="paramkey" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="paramStrValue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="paramIntValue" Type="Int32" />
-          <Property Name="paramFloatValue" Type="Decimal" Precision="18" Scale="4" />
-        </EntityType>
-        <EntityType Name="tb_UserAccount">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="money" Type="Decimal" Precision="18" Scale="4" Nullable="false" />
-          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="paypwd" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="moneybag" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="MinerType" Type="Int32" Nullable="false" />
-          <Property Name="endTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Referee" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MyGrade" Type="Int32" Nullable="false" />
-          <Property Name="RecommendA0" Type="Int32" Nullable="false" />
-          <Property Name="RecommendA1" Type="Int32" Nullable="false" />
-          <Property Name="RecommendA2" Type="Int32" Nullable="false" />
-          <Property Name="RecommendA3" Type="Int32" Nullable="false" />
-          <Property Name="RecommendB1" Type="Int32" Nullable="false" />
-          <Property Name="RecommendB2" Type="Int32" Nullable="false" />
-          <Property Name="RecommendB3" Type="Int32" Nullable="false" />
-          <Property Name="RecommendC1" Type="Int32" Nullable="false" />
-          <Property Name="RecommendC2" Type="Int32" Nullable="false" />
-          <Property Name="RecommendC3" Type="Int32" Nullable="false" />
-          <Property Name="RecommendS" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_tb_UserAccount_AspNetUsers" FromRole="tb_UserAccount" ToRole="AspNetUsers" />
-          <NavigationProperty Name="tb_grade" Relationship="Self.FK_tb_UserAccount_tb_grade" FromRole="tb_UserAccount" ToRole="tb_grade" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
@@ -478,30 +423,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_UserAccount_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
-          <End Role="tb_UserAccount" Type="Self.tb_UserAccount" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tb_UserAccount">
-              <PropertyRef Name="Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tb_UserAccount_tb_grade">
-          <End Role="tb_grade" Type="Self.tb_grade" Multiplicity="1" />
-          <End Role="tb_UserAccount" Type="Self.tb_UserAccount" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tb_grade">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="tb_UserAccount">
-              <PropertyRef Name="MyGrade" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="AspNetUserRoles">
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
@@ -512,10 +433,7 @@
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
           <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
-          <EntitySet Name="tb_grade" EntityType="Self.tb_grade" />
           <EntitySet Name="tb_MinerType" EntityType="Self.tb_MinerType" />
-          <EntitySet Name="tb_params" EntityType="Self.tb_params" />
-          <EntitySet Name="tb_UserAccount" EntityType="Self.tb_UserAccount" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -524,22 +442,27 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_UserAccount_AspNetUsers" Association="Self.FK_tb_UserAccount_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="tb_UserAccount" EntitySet="tb_UserAccount" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tb_UserAccount_tb_grade" Association="Self.FK_tb_UserAccount_tb_grade">
-            <End Role="tb_grade" EntitySet="tb_grade" />
-            <End Role="tb_UserAccount" EntitySet="tb_UserAccount" />
-          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
           </AssociationSet>
-          <EntitySet Name="tb_Capitalflow" EntityType="Model.tb_Capitalflow" />
-          <EntitySet Name="tb_coefficient" EntityType="Model.tb_coefficient" />
           <EntitySet Name="tb_Notice" EntityType="Model.tb_Notice" />
-          <EntitySet Name="tb_reward_coefficient" EntityType="Model.tb_reward_coefficient" />
+          <AssociationSet Name="FK_tb_Notice_AspNetUsers" Association="Model.FK_tb_Notice_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="tb_Notice" EntitySet="tb_Notice" />
+          </AssociationSet>
+          <EntitySet Name="tb_params" EntityType="Model.tb_params" />
+          <EntitySet Name="tb_grade" EntityType="Model.tb_grade" />
+          <EntitySet Name="tb_UserAccount" EntityType="Model.tb_UserAccount" />
+          <AssociationSet Name="FK_tb_UserAccount_AspNetUsers" Association="Model.FK_tb_UserAccount_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="tb_UserAccount" EntitySet="tb_UserAccount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tb_UserAccount_tb_grade" Association="Model.FK_tb_UserAccount_tb_grade">
+            <End Role="tb_grade" EntitySet="tb_grade" />
+            <End Role="tb_UserAccount" EntitySet="tb_UserAccount" />
+          </AssociationSet>
+          <EntitySet Name="tb_Capitalflow" EntityType="Model.tb_Capitalflow" />
           <AssociationSet Name="FK_tb_Capitalflow_AspNetUsers" Association="Model.FK_tb_Capitalflow_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tb_Capitalflow" EntitySet="tb_Capitalflow" />
@@ -548,33 +471,8 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="tb_Capitalflow" EntitySet="tb_Capitalflow" />
           </AssociationSet>
-          <AssociationSet Name="FK_tb_Notice_AspNetUsers" Association="Model.FK_tb_Notice_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="tb_Notice" EntitySet="tb_Notice" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="tb_Capitalflow">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="userid" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="flowType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="money" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
-          <Property Name="otherUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_tb_Capitalflow_AspNetUsers" FromRole="tb_Capitalflow" ToRole="AspNetUsers" />
-          <NavigationProperty Name="AspNetUsers1" Relationship="Model.FK_tb_Capitalflow_AspNetUsers1" FromRole="tb_Capitalflow" ToRole="AspNetUsers" />
-        </EntityType>
-        <EntityType Name="tb_coefficient">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="firststage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="secstage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="thridstage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-        </EntityType>
+          <EntitySet Name="tb_eventlog" EntityType="Model.tb_eventlog" />
+          </EntityContainer>
         <EntityType Name="tb_Notice">
           <Key>
             <PropertyRef Name="nid" />
@@ -587,14 +485,105 @@
           <Property Name="isShow" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_tb_Notice_AspNetUsers" FromRole="tb_Notice" ToRole="AspNetUsers" />
         </EntityType>
-        <EntityType Name="tb_reward_coefficient">
+        <Association Name="FK_tb_Notice_AspNetUsers">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Model.tb_Notice" Role="tb_Notice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_Notice">
+              <PropertyRef Name="creator" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tb_params">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Guid" Nullable="false" />
-          <Property Name="rfirststage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="rsecstage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="rthridstage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="paramkey" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="paramStrValue" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="paramIntValue" Type="Int32" />
+          <Property Name="paramFloatValue" Type="Decimal" Precision="18" Scale="4" />
+          <Property Name="describe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="tb_grade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="grade" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Rewardpercentage" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="tb_UserAccount" Relationship="Model.FK_tb_UserAccount_tb_grade" FromRole="tb_grade" ToRole="tb_UserAccount" />
+        </EntityType>
+        <EntityType Name="tb_UserAccount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="money" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="paypwd" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="moneybag" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="MinerType" Type="Int32" Nullable="false" />
+          <Property Name="endTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Referee" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="MyGrade" Type="Int32" Nullable="false" />
+          <Property Name="RecommendA0" Type="Int32" Nullable="false" />
+          <Property Name="RecommendA1" Type="Int32" Nullable="false" />
+          <Property Name="RecommendA2" Type="Int32" Nullable="false" />
+          <Property Name="RecommendA3" Type="Int32" Nullable="false" />
+          <Property Name="RecommendB1" Type="Int32" Nullable="false" />
+          <Property Name="RecommendB2" Type="Int32" Nullable="false" />
+          <Property Name="RecommendB3" Type="Int32" Nullable="false" />
+          <Property Name="RecommendC1" Type="Int32" Nullable="false" />
+          <Property Name="RecommendC2" Type="Int32" Nullable="false" />
+          <Property Name="RecommendC3" Type="Int32" Nullable="false" />
+          <Property Name="RecommendS" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_tb_UserAccount_AspNetUsers" FromRole="tb_UserAccount" ToRole="AspNetUsers" />
+          <NavigationProperty Name="tb_grade" Relationship="Model.FK_tb_UserAccount_tb_grade" FromRole="tb_UserAccount" ToRole="tb_grade" />
+        </EntityType>
+        <Association Name="FK_tb_UserAccount_AspNetUsers">
+          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+          <End Type="Model.tb_UserAccount" Role="tb_UserAccount" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tb_UserAccount">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tb_UserAccount_tb_grade">
+          <End Type="Model.tb_grade" Role="tb_grade" Multiplicity="1" />
+          <End Type="Model.tb_UserAccount" Role="tb_UserAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tb_grade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tb_UserAccount">
+              <PropertyRef Name="MyGrade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tb_Capitalflow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="userid" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="flowType" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="money" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="otherUser" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="describe" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="curMoney" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+          <Property Name="isIncome" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Model.FK_tb_Capitalflow_AspNetUsers" FromRole="tb_Capitalflow" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers1" Relationship="Model.FK_tb_Capitalflow_AspNetUsers1" FromRole="tb_Capitalflow" ToRole="AspNetUsers" />
         </EntityType>
         <Association Name="FK_tb_Capitalflow_AspNetUsers">
           <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
@@ -620,147 +609,161 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tb_Notice_AspNetUsers">
-          <End Type="Model.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
-          <End Type="Model.tb_Notice" Role="tb_Notice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="tb_Notice">
-              <PropertyRef Name="creator" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-      </Schema>
+        <EntityType Name="tb_eventlog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enventtype" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="eventdesc" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="userid" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
-          <EntitySetMapping Name="C__MigrationHistory">
-            <EntityTypeMapping TypeName="Model.C__MigrationHistory">
-              <MappingFragment StoreEntitySet="__MigrationHistory">
-                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
-                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
-                <ScalarProperty Name="Model" ColumnName="Model" />
-                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="Model.AspNetRoles">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserClaims">
-            <EntityTypeMapping TypeName="Model.AspNetUserClaims">
-              <MappingFragment StoreEntitySet="AspNetUserClaims">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
-                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUserLogins">
-            <EntityTypeMapping TypeName="Model.AspNetUserLogins">
-              <MappingFragment StoreEntitySet="AspNetUserLogins">
-                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="Model.AspNetUsers">
-              <MappingFragment StoreEntitySet="AspNetUsers">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Hometown" ColumnName="Hometown" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
-                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
-                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
-                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
-                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
-                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
-                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
-                <ScalarProperty Name="UserName" ColumnName="UserName" />
-                <ScalarProperty Name="Grade" ColumnName="Grade" />
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.C__MigrationHistory)">
+        <MappingFragment StoreEntitySet="C__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetRoles)">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetUserClaims)">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetUserLogins)">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AspNetUsers)">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Hometown" ColumnName="Hometown" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_MinerType">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.tb_MinerType)">
+        <MappingFragment StoreEntitySet="tb_MinerType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_Notice">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.tb_Notice)">
+        <MappingFragment StoreEntitySet="tb_Notice">
+          <ScalarProperty Name="nid" ColumnName="nid" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="creator" ColumnName="creator" />
+          <ScalarProperty Name="created" ColumnName="created" />
+          <ScalarProperty Name="isShow" ColumnName="isShow" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="AspNetRoles_Id" />
+      </EndProperty>
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="AspNetUsers_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+          <EntitySetMapping Name="tb_params">
+            <EntityTypeMapping TypeName="Model.tb_params">
+              <MappingFragment StoreEntitySet="tb_params">
+                <ScalarProperty Name="describe" ColumnName="describe" />
+                <ScalarProperty Name="paramFloatValue" ColumnName="paramFloatValue" />
+                <ScalarProperty Name="paramIntValue" ColumnName="paramIntValue" />
+                <ScalarProperty Name="paramStrValue" ColumnName="paramStrValue" />
+                <ScalarProperty Name="paramkey" ColumnName="paramkey" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tb_grade">
             <EntityTypeMapping TypeName="Model.tb_grade">
               <MappingFragment StoreEntitySet="tb_grade">
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Rewardpercentage" ColumnName="Rewardpercentage" />
                 <ScalarProperty Name="grade" ColumnName="grade" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_MinerType">
-            <EntityTypeMapping TypeName="Model.tb_MinerType">
-              <MappingFragment StoreEntitySet="tb_MinerType">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="price" ColumnName="price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_params">
-            <EntityTypeMapping TypeName="Model.tb_params">
-              <MappingFragment StoreEntitySet="tb_params">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="paramkey" ColumnName="paramkey" />
-                <ScalarProperty Name="paramStrValue" ColumnName="paramStrValue" />
-                <ScalarProperty Name="paramIntValue" ColumnName="paramIntValue" />
-                <ScalarProperty Name="paramFloatValue" ColumnName="paramFloatValue" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tb_UserAccount">
             <EntityTypeMapping TypeName="Model.tb_UserAccount">
               <MappingFragment StoreEntitySet="tb_UserAccount">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="money" ColumnName="money" />
-                <ScalarProperty Name="created" ColumnName="created" />
-                <ScalarProperty Name="modify" ColumnName="modify" />
-                <ScalarProperty Name="paypwd" ColumnName="paypwd" />
-                <ScalarProperty Name="moneybag" ColumnName="moneybag" />
-                <ScalarProperty Name="MinerType" ColumnName="MinerType" />
-                <ScalarProperty Name="endTime" ColumnName="endTime" />
-                <ScalarProperty Name="Referee" ColumnName="Referee" />
-                <ScalarProperty Name="MyGrade" ColumnName="MyGrade" />
-                <ScalarProperty Name="RecommendA0" ColumnName="RecommendA0" />
-                <ScalarProperty Name="RecommendA1" ColumnName="RecommendA1" />
-                <ScalarProperty Name="RecommendA2" ColumnName="RecommendA2" />
-                <ScalarProperty Name="RecommendA3" ColumnName="RecommendA3" />
-                <ScalarProperty Name="RecommendB1" ColumnName="RecommendB1" />
-                <ScalarProperty Name="RecommendB2" ColumnName="RecommendB2" />
-                <ScalarProperty Name="RecommendB3" ColumnName="RecommendB3" />
-                <ScalarProperty Name="RecommendC1" ColumnName="RecommendC1" />
-                <ScalarProperty Name="RecommendC2" ColumnName="RecommendC2" />
-                <ScalarProperty Name="RecommendC3" ColumnName="RecommendC3" />
                 <ScalarProperty Name="RecommendS" ColumnName="RecommendS" />
+                <ScalarProperty Name="RecommendC3" ColumnName="RecommendC3" />
+                <ScalarProperty Name="RecommendC2" ColumnName="RecommendC2" />
+                <ScalarProperty Name="RecommendC1" ColumnName="RecommendC1" />
+                <ScalarProperty Name="RecommendB3" ColumnName="RecommendB3" />
+                <ScalarProperty Name="RecommendB2" ColumnName="RecommendB2" />
+                <ScalarProperty Name="RecommendB1" ColumnName="RecommendB1" />
+                <ScalarProperty Name="RecommendA3" ColumnName="RecommendA3" />
+                <ScalarProperty Name="RecommendA2" ColumnName="RecommendA2" />
+                <ScalarProperty Name="RecommendA1" ColumnName="RecommendA1" />
+                <ScalarProperty Name="RecommendA0" ColumnName="RecommendA0" />
+                <ScalarProperty Name="MyGrade" ColumnName="MyGrade" />
+                <ScalarProperty Name="Referee" ColumnName="Referee" />
+                <ScalarProperty Name="endTime" ColumnName="endTime" />
+                <ScalarProperty Name="MinerType" ColumnName="MinerType" />
+                <ScalarProperty Name="moneybag" ColumnName="moneybag" />
+                <ScalarProperty Name="paypwd" ColumnName="paypwd" />
+                <ScalarProperty Name="modify" ColumnName="modify" />
+                <ScalarProperty Name="created" ColumnName="created" />
+                <ScalarProperty Name="money" ColumnName="money" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetRoles">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-            <EndProperty Name="AspNetUsers">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="tb_Capitalflow">
             <EntityTypeMapping TypeName="Model.tb_Capitalflow">
               <MappingFragment StoreEntitySet="tb_Capitalflow">
+                <ScalarProperty Name="isIncome" ColumnName="isIncome" />
+                <ScalarProperty Name="curMoney" ColumnName="curMoney" />
+                <ScalarProperty Name="describe" ColumnName="describe" />
                 <ScalarProperty Name="created" ColumnName="created" />
                 <ScalarProperty Name="otherUser" ColumnName="otherUser" />
                 <ScalarProperty Name="money" ColumnName="money" />
@@ -770,41 +773,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tb_coefficient">
-            <EntityTypeMapping TypeName="Model.tb_coefficient">
-              <MappingFragment StoreEntitySet="tb_coefficient">
-                <ScalarProperty Name="thridstage" ColumnName="thridstage" />
-                <ScalarProperty Name="secstage" ColumnName="secstage" />
-                <ScalarProperty Name="firststage" ColumnName="firststage" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_Notice">
-            <EntityTypeMapping TypeName="Model.tb_Notice">
-              <MappingFragment StoreEntitySet="tb_Notice">
-                <ScalarProperty Name="isShow" ColumnName="isShow" />
+          <EntitySetMapping Name="tb_eventlog">
+            <EntityTypeMapping TypeName="Model.tb_eventlog">
+              <MappingFragment StoreEntitySet="tb_eventlog">
+                <ScalarProperty Name="userid" ColumnName="userid" />
                 <ScalarProperty Name="created" ColumnName="created" />
-                <ScalarProperty Name="creator" ColumnName="creator" />
-                <ScalarProperty Name="content" ColumnName="content" />
-                <ScalarProperty Name="title" ColumnName="title" />
-                <ScalarProperty Name="nid" ColumnName="nid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tb_reward_coefficient">
-            <EntityTypeMapping TypeName="Model.tb_reward_coefficient">
-              <MappingFragment StoreEntitySet="tb_reward_coefficient">
-                <ScalarProperty Name="rthridstage" ColumnName="rthridstage" />
-                <ScalarProperty Name="rsecstage" ColumnName="rsecstage" />
-                <ScalarProperty Name="rfirststage" ColumnName="rfirststage" />
+                <ScalarProperty Name="eventdesc" ColumnName="eventdesc" />
+                <ScalarProperty Name="enventtype" ColumnName="enventtype" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -818,8 +799,8 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
